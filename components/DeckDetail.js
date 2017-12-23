@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 
-class DeckList extends Component {
+class DeckDetail extends Component {
   render() {
     return (
       <View>
-        <Text>Deck List</Text>
+        <Text>Deck Detail</Text>
       </View>
     )
   }
 }
 
-export default DeckList
+export default DeckDetail
