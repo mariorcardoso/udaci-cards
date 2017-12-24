@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, Platform } from 'react-native'
-import { purple, white, grey } from '../utils/colors'
+import { purple, white, gray } from '../utils/colors'
 
 class DeckDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -40,12 +40,13 @@ const styles = StyleSheet.create({
   },
   info: {
     fontSize: 30,
-    color: grey
+    marginTop: 15,
+    color: gray,
   },
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: white
+    backgroundColor: white,
   },
   iosBtn: {
     backgroundColor: purple,
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
   addCardBtn: {
     backgroundColor: white,
     borderColor: purple,
-    borderWidth: 1
+    borderWidth: 1,
   }
 })
 
