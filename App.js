@@ -55,7 +55,7 @@ const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs,
   },
-  EntryDetail: {
+  DeckDetail: {
     screen: DeckDetail,
     navigationOptions: {
       headerTintColor: white,

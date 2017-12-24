@@ -3,22 +3,25 @@ import { View, TouchableOpacity, Text, StyleSheet, ScrollView, Platform } from '
 import getDecks from '../decks'
 import { white, gray } from '../utils/colors'
 
-function Deck ({ name, quantity }) {
+function Deck ({ name, quantity, navigation }) {
   return (
-    <View style={styles.item}>
-      <Text style={styles.itemName}>{name}</Text>
-      <Text style={styles.itemInfo}>{quantity} cards</Text>
-    </View>
+    <TouchableOpacity onPress={() => navigation.navigate('DeckDetail', { deckId: name })}>
+      <View style={styles.item}>
+        <Text style={styles.itemName}>{name}</Text>
+        <Text style={styles.itemInfo}>{quantity} cards</Text>
+      </View>
+    </TouchableOpacity>
   )
 }
 
 class DeckList extends Component {
   render() {
     const decks = getDecks()
+    const { navigation } = this.props
 
     return (
       <ScrollView>
-        {decks.map(({name, quantity}) => <Deck key={name} name={name} quantity={quantity} />)}
+        {decks.map(({name, quantity}) => <Deck key={name} name={name} quantity={quantity} navigation={navigation} />)}
       </ScrollView>
     )
   }
