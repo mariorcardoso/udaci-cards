@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, ScrollView, Platform } from 'react-native'
-import getDecks from '../decks'
+import { getDecks } from '../utils/helpers'
 import { white, gray } from '../utils/colors'
 
-function Deck ({ name, quantity, navigation }) {
+function Deck ({ id, title, quantity, navigation }) {
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('DeckDetail', { deckId: name })}>
+    <TouchableOpacity onPress={() => navigation.navigate('DeckDetail', { deckId: id })}>
       <View style={styles.item}>
-        <Text style={styles.itemName}>{name}</Text>
+        <Text style={styles.itemName}>{title}</Text>
         <Text style={styles.itemInfo}>{quantity} cards</Text>
       </View>
     </TouchableOpacity>
@@ -15,13 +15,24 @@ function Deck ({ name, quantity, navigation }) {
 }
 
 class DeckList extends Component {
+  state = {
+    decks: {}
+  }
+  componentDidMount () {
+    getDecks().then((decks) => {
+      this.setState({ decks })
+    })
+  }
   render() {
-    const decks = getDecks()
+    const { decks } = this.state
     const { navigation } = this.props
 
     return (
       <ScrollView>
-        {decks.map(({name, quantity}) => <Deck key={name} name={name} quantity={quantity} navigation={navigation} />)}
+        {Object.keys(decks).map((key) => {
+          const { title, questions } = decks[key]
+          return <Deck key={key} id={key} title={title} quantity={questions.length} navigation={navigation} />
+        })}
       </ScrollView>
     )
   }

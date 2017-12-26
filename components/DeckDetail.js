@@ -1,19 +1,30 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, Platform } from 'react-native'
 import { purple, white, gray } from '../utils/colors'
+import { getDeck } from '../utils/helpers'
 
 class DeckDetail extends Component {
+  state = {
+    deck: {}
+  }
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.deckId
   })
+  componentDidMount () {
+    const { deckId } = this.props.navigation.state.params
+    getDeck(deckId).then((deck) => {
+      this.setState({ deck })
+    })
+  }
   render() {
+    const { deck } = this.state
     const { deckId } = this.props.navigation.state.params
 
     return (
       <View style={{ flex: 1 }}>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={styles.title}>{deckId}</Text>
-          <Text style={styles.info}>3 cards</Text>
+          <Text style={styles.title}>{deck.title}</Text>
+          <Text style={styles.info}>{deck.questions && deck.questions.length} cards</Text>
         </View>
 
         <View style={{ justifyContent: 'flex-end' }}>
@@ -25,7 +36,7 @@ class DeckDetail extends Component {
 
           <TouchableOpacity
             style={Platform.OS === 'ios' ? styles.iosBtn : styles.AndroidBtn}
-            onPress={console.log('btn pressed')}>
+            onPress={() => this.props.navigation.navigate('Quiz', { deckId: deckId })}>
               <Text style={styles.btnText}>Start Quiz</Text>
           </TouchableOpacity>
         </View>

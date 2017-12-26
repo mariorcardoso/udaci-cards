@@ -7,6 +7,7 @@ import { Constants } from 'expo'
 import DeckDetail from './components/DeckDetail'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
+import Quiz from './components/Quiz'
 
 function DefaultStatusBar ({backgroundColor, ...props}) {
   return (
@@ -57,6 +58,15 @@ const MainNavigator = StackNavigator({
   },
   DeckDetail: {
     screen: DeckDetail,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  },
+  Quiz: {
+    screen: Quiz,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
