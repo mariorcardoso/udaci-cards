@@ -29,9 +29,9 @@ class DeckDetail extends Component {
 
         <View style={{ justifyContent: 'flex-end' }}>
           <TouchableOpacity
-            style={[Platform.OS === 'ios' ? styles.iosBtn : styles.AndroidBtn, styles.addCardBtn]}
-            onPress={console.log('btn pressed')}>
-              <Text style={[styles.btnText, styles.addCardBtnText]}>Add Card</Text>
+            style={[Platform.OS === 'ios' ? styles.iosBtn : styles.AndroidBtn, styles.blankBtn]}
+            onPress={() => this.props.navigation.navigate('NewCard', { deckId: deckId })}>
+              <Text style={[styles.btnText, styles.blankBtnText]}>Add Card</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -85,10 +85,10 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: 'center',
   },
-  addCardBtnText: {
+  blankBtnText: {
     color: purple,
   },
-  addCardBtn: {
+  blankBtn: {
     backgroundColor: white,
     borderColor: purple,
     borderWidth: 1,

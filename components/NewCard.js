@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
 import { white, gray, purple } from '../utils/colors'
-import { saveDeckTitle } from '../utils/helpers'
+import { addCardToDeck } from '../utils/helpers'
 
-class NewDeck extends Component {
+class NewCard extends Component {
   state = {
-    title: ''
+    question: '',
+    answer: ''
   }
   handleSubmit() {
-    const { title } = this.state
-    saveDeckTitle(title)
+    const { question, answer } = this.state
+    const { deckId } = this.props.navigation.state.params
+    addCardToDeck(deckId, { question, answer })
     this.props.navigation.navigate('Home')
   }
   render() {
@@ -18,8 +20,13 @@ class NewDeck extends Component {
         <View style={styles.center}>
           <TextInput
             style={{height: 40, fontSize: 40}}
-            placeholder="Title"
-            onChangeText={(title) => this.setState({title})}
+            placeholder="Question"
+            onChangeText={(question) => this.setState({question})}
+          />
+          <TextInput
+            style={{height: 40, fontSize: 40}}
+            placeholder="Answer"
+            onChangeText={(answer) => this.setState({answer})}
           />
         </View>
         <TouchableOpacity
@@ -55,4 +62,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default NewDeck
+export default NewCard

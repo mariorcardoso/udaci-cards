@@ -8,6 +8,7 @@ import DeckDetail from './components/DeckDetail'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
 import Quiz from './components/Quiz'
+import NewCard from './components/NewCard'
 
 function DefaultStatusBar ({backgroundColor, ...props}) {
   return (
@@ -65,6 +66,15 @@ const MainNavigator = StackNavigator({
       }
     }
   },
+  NewCard: {
+    screen: NewCard,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  },
   Quiz: {
     screen: Quiz,
     navigationOptions: {
@@ -91,7 +101,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
 })
