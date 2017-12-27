@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
 import { white, gray, purple } from '../utils/colors'
 import { saveDeckTitle } from '../utils/helpers'
+import { DefaultButton } from './Buttons'
 
 class NewDeck extends Component {
   state = {
@@ -22,11 +23,7 @@ class NewDeck extends Component {
             onChangeText={(title) => this.setState({title})}
           />
         </View>
-        <TouchableOpacity
-          style={styles.iosBtn}
-          onPress={() => this.handleSubmit()}>
-            <Text style={styles.btnText}>Submit</Text>
-        </TouchableOpacity>
+        <DefaultButton title="Submit" onPress={() => this.handleSubmit()} />
       </View>
     )
   }
@@ -38,21 +35,7 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginRight: 40,
     justifyContent: 'center'
-  },
-  iosBtn: {
-    backgroundColor: purple,
-    padding: 10,
-    borderRadius: 7,
-    height: 45,
-    marginLeft: 40,
-    marginRight: 40,
-    marginBottom: 75,
-  },
-  btnText: {
-    color: white,
-    fontSize: 22,
-    textAlign: 'center',
-  },
+  }
 })
 
 export default NewDeck

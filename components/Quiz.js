@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, Platform, Button } from 'react-native'
 import { gray, white, purple, red, green } from '../utils/colors'
 import { getDeck } from '../utils/helpers'
+import { DefaultButton, DefaultWhiteButton } from './Buttons'
 
 class Quiz extends Component {
   state = {
@@ -45,17 +46,10 @@ class Quiz extends Component {
             </View>
 
             <View style={{ justifyContent: 'flex-end' }}>
-              <TouchableOpacity
-                style={[Platform.OS === 'ios' ? styles.iosBtn : styles.AndroidBtn, styles.blankBtn]}
-                onPress={() => this.props.navigation.navigate('DeckDetail', { deckId: deckId })}>
-                  <Text style={[styles.btnText, styles.blankBtnText]}>Deck Initial Page</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={Platform.OS === 'ios' ? styles.iosBtn : styles.AndroidBtn}
-                onPress={() => this.props.navigation.navigate('Quiz', { deckId: deckId })}>
-                  <Text style={styles.btnText}>Start Quiz</Text>
-              </TouchableOpacity>
+              <DefaultWhiteButton title="Deck Initial Page"
+                onPress={() => this.props.navigation.navigate('DeckDetail', { deckId: deckId })} />
+              <DefaultButton title="Start Quiz"
+                onPress={() => this.props.navigation.navigate('Quiz', { deckId: deckId })} />
             </View>
           </View>
         )
@@ -72,17 +66,8 @@ class Quiz extends Component {
                 color={red} />
             </View>
             <View style={{ justifyContent: 'flex-end' }}>
-              <TouchableOpacity
-                style={[Platform.OS === 'ios' ? styles.iosBtn : styles.AndroidBtn, { backgroundColor: green }]}
-                onPress={() => this.nextQuestion(true)}>
-                  <Text style={styles.btnText}>Correct</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={[Platform.OS === 'ios' ? styles.iosBtn : styles.AndroidBtn, { backgroundColor: red }]}
-                onPress={() => this.nextQuestion(false)}>
-                  <Text style={styles.btnText}>Incorrect</Text>
-              </TouchableOpacity>
+              <DefaultButton title="Correct" onPress={() => this.nextQuestion(true)} style={{backgroundColor: green}} />
+              <DefaultButton title="Incorrect" onPress={() => this.nextQuestion(false)} style={{backgroundColor: red}} />
             </View>
           </View>
         )}
@@ -104,45 +89,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 5,
     marginLeft: 5,
-  },
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: white,
-  },
-  iosBtn: {
-    backgroundColor: purple,
-    padding: 10,
-    borderRadius: 7,
-    height: 45,
-    marginLeft: 40,
-    marginRight: 40,
-    marginBottom: 17,
-  },
-  AndroidBtn: {
-    backgroundColor: purple,
-    padding: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-    height: 45,
-    borderRadius: 2,
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 17,
-  },
-  btnText: {
-    color: white,
-    fontSize: 22,
-    textAlign: 'center',
-  },
-  blankBtnText: {
-    color: purple,
-  },
-  blankBtn: {
-    backgroundColor: white,
-    borderColor: purple,
-    borderWidth: 1,
   }
 })
 
