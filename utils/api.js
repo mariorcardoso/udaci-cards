@@ -6,10 +6,10 @@ export function fetchDecks () {
     .then(formatDecksResults)
 }
 
-export function submitDeck ({ title }) {
-  const key = title.replace(/\s/g, '')
+export function submitDeck ({ key, deck }) {
+  console.log('submitDeck')
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-    [key]: { 'title': title, 'questions': [] }
+    [key]: deck
   }))
 }
 

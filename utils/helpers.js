@@ -1,8 +1,7 @@
 import { AsyncStorage } from 'react-native'
+import { DECKS_STORAGE_KEY } from './_deck'
 
-const DECKS_STORAGE_KEY = 'UdaciCards:decks'
-
-function decksDummyData () {
+export function decksDummyData () {
   const info = {
     React: {
       title: 'React',
@@ -25,41 +24,10 @@ function decksDummyData () {
           answer: 'The combination of a function and the lexical environment within which that function was declared.'
         }
       ]
-    },
-    NewDeck1: {
-      title: 'New Deck 1',
-      questions: [
-        {
-          question: 'Does React Native work with Android?',
-          answer: 'Yes!'
-        },
-        {
-          question: 'What is a component?',
-          answer: 'Components let you split the UI into independent, reusable pieces...'
-        }
-      ]
     }
   }
 
   return info
-}
-
-export function formatDeckResults (results) {
-  return results === null
-    ? setDummyData()
-    : JSON.parse(results)
-}
-
-function setDummyData () {
-  const dummyData = decksDummyData()
-  AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(dummyData))
-  return dummyData
-}
-
-// PUBLIC INTERFACE
-export function getDecks() {
-  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-    .then(formatDeckResults)
 }
 
 export function getDeck(id) {
