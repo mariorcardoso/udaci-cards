@@ -3,6 +3,10 @@ import { View, TouchableOpacity, Text, StyleSheet, ScrollView, Platform } from '
 import { getDecks } from '../utils/helpers'
 import { white, gray } from '../utils/colors'
 
+import { connect } from 'react-redux'
+import { receiveDecks, addDeck } from '../actions'
+import { fetchDecks } from '../utils/api'
+
 function Deck ({ id, title, quantity, navigation }) {
   return (
     <TouchableOpacity onPress={() => navigation.navigate('DeckDetail', { deckId: id })}>
@@ -15,17 +19,15 @@ function Deck ({ id, title, quantity, navigation }) {
 }
 
 class DeckList extends Component {
-  state = {
-    decks: {}
-  }
   componentDidMount () {
-    getDecks().then((decks) => {
-      this.setState({ decks })
-    })
+    const { dispatch } = this.props
+
+    fetchDecks()
+      .then((decks) => dispatch(receiveDecks(decks)))
+      .then((decks) => { this.setState({ decks }) })
   }
   render() {
-    const { decks } = this.state
-    const { navigation } = this.props
+    const { navigation , decks} = this.props
 
     return (
       <ScrollView>
@@ -65,4 +67,12 @@ const styles = StyleSheet.create({
   }
 })
 
-export default DeckList
+function mapStateToProps (decks) {
+  return {
+    decks
+  }
+}
+
+export default connect(
+  mapStateToProps,
+)(DeckList)

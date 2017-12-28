@@ -4,6 +4,9 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import { purple, white } from './utils/colors'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
+import { createStore } from 'redux'
+import reducer from './reducers'
+import { Provider } from 'react-redux'
 import DeckDetail from './components/DeckDetail'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
@@ -89,10 +92,12 @@ const MainNavigator = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <DefaultStatusBar backgroundColor={purple} barStyle="light-content" />
-        <MainNavigator />
-      </View>
+      <Provider store={createStore(reducer)}>
+        <View style={styles.container}>
+          <DefaultStatusBar backgroundColor={purple} barStyle="light-content" />
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }
