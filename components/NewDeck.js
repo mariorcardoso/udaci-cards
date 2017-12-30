@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, TextInput, StyleSheet } from 'react-native'
 import { white, gray, purple } from '../utils/colors'
-import { saveDeckTitle } from '../utils/helpers'
 import { addDeck } from '../actions'
 import { submitDeck } from '../utils/api'
 import { connect } from 'react-redux'
@@ -17,12 +16,9 @@ class NewDeck extends Component {
     const key = title.replace(/\s/g, '')
     const deck = { 'title': title, 'questions': [] }
 
-    this.props.dispatch(addDeck({
-      [key]: deck
-    }))
-
+    this.props.dispatch(addDeck({ [key]: deck }))
+    this.setState({title: ''})
     this.toHome()
-
     submitDeck({ key, deck })
   }
   toHome = () => {
@@ -36,6 +32,7 @@ class NewDeck extends Component {
             style={{height: 40, fontSize: 40}}
             placeholder="Title"
             onChangeText={(title) => this.setState({title})}
+            value={this.state.title}
           />
         </View>
         <DefaultButton title="Submit" onPress={this.submit} />
