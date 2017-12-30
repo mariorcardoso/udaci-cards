@@ -29,11 +29,3 @@ export function decksDummyData () {
 
   return info
 }
-
-export function getDeck(id) {
-  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-    .then((results) => {
-      const data = JSON.parse(results)
-      return data[id]
-    })
-}

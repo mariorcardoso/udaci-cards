@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, Platform } from 'react-native'
 import { purple, white, gray } from '../utils/colors'
-import { getDeck } from '../utils/helpers'
 import { DefaultWhiteButton, DefaultButton } from './Buttons'
 import { connect } from 'react-redux'
 
