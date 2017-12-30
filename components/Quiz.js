@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet, Platform, Button } from 'reac
 import { gray, white, purple, red, green } from '../utils/colors'
 import { connect } from 'react-redux'
 import { DefaultButton, DefaultWhiteButton } from './Buttons'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 class Quiz extends Component {
   state = {
@@ -16,8 +17,16 @@ class Quiz extends Component {
   nextQuestion(guess) {
     let { score, questionNumber } = this.state
     guess && (score += 1)
-    !(this.isComplete()) && (questionNumber += 1)
+    if(this.isComplete()) {
+      this.manageNotifications()
+    } else {
+      questionNumber += 1
+    }
     this.setState({ score, questionNumber })
+  }
+  manageNotifications () {
+    clearLocalNotification()
+      .then(setLocalNotification)
   }
   isComplete() {
     const { questionNumber } = this.state
