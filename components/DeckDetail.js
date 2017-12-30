@@ -3,23 +3,14 @@ import { View, TouchableOpacity, Text, StyleSheet, Platform } from 'react-native
 import { purple, white, gray } from '../utils/colors'
 import { getDeck } from '../utils/helpers'
 import { DefaultWhiteButton, DefaultButton } from './Buttons'
+import { connect } from 'react-redux'
 
 class DeckDetail extends Component {
-  state = {
-    deck: {}
-  }
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.deckId
   })
-  componentDidMount () {
-    const { deckId } = this.props.navigation.state.params
-    getDeck(deckId).then((deck) => {
-      this.setState({ deck })
-    })
-  }
   render() {
-    const { deck } = this.state
-    const { deckId } = this.props.navigation.state.params
+    const { deckId, deck } = this.props
 
     return (
       <View style={{ flex: 1 }}>
@@ -48,4 +39,15 @@ const styles = StyleSheet.create({
   },
 })
 
-export default DeckDetail
+function mapStateToProps (state, { navigation }) {
+  const { deckId } = navigation.state.params
+
+  return {
+    deckId,
+    deck: state[deckId],
+  }
+}
+
+export default connect(
+  mapStateToProps,
+)(DeckDetail)

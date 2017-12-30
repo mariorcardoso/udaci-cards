@@ -2,24 +2,18 @@ import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, Platform, Button } from 'react-native'
 import { gray, white, purple, red, green } from '../utils/colors'
 import { getDeck } from '../utils/helpers'
+import { connect } from 'react-redux'
 import { DefaultButton, DefaultWhiteButton } from './Buttons'
 
 class Quiz extends Component {
   state = {
     viewQuestion: true,
     questionNumber: 1,
-    deck: {},
     score: 0
   }
   static navigationOptions = () => ({
     title: 'Quiz'
   })
-  componentDidMount () {
-    const { deckId } = this.props.navigation.state.params
-    getDeck(deckId).then((deck) => {
-      this.setState({ deck })
-    })
-  }
   nextQuestion(guess) {
     let { score, questionNumber } = this.state
     guess && (score += 1)
@@ -27,12 +21,13 @@ class Quiz extends Component {
     this.setState({ score, questionNumber })
   }
   isComplete() {
-    const { questionNumber, deck } = this.state
+    const { questionNumber } = this.state
+    const { deck } = this.props
     return deck.questions && (deck.questions.length < questionNumber)
   }
   render() {
-    const { deckId } = this.props.navigation.state.params
-    const { viewQuestion, deck, questionNumber, score } = this.state
+    const { deckId, deck } = this.props
+    const { viewQuestion, questionNumber, score } = this.state
     const question = deck.questions && deck.questions[questionNumber - 1]
 
     return (
@@ -42,7 +37,7 @@ class Quiz extends Component {
           <View style={{ flex: 1 }}>
             <View style={styles.center}>
               <Text style={{fontSize: 25}}>Finished!</Text>
-              <Text style={{fontSize: 50, fontWeight: 'bold'}}>Score: {(score / deck.questions.length) * 100}%</Text>
+              <Text style={{fontSize: 50, fontWeight: 'bold'}}>Score: {Math.round((score / deck.questions.length) * 100)}%</Text>
             </View>
 
             <View style={{ justifyContent: 'flex-end' }}>
@@ -92,4 +87,15 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Quiz
+function mapStateToProps (state, { navigation }) {
+  const { deckId } = navigation.state.params
+
+  return {
+    deckId,
+    deck: state[deckId],
+  }
+}
+
+export default connect(
+  mapStateToProps,
+)(Quiz)
