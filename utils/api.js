@@ -16,19 +16,8 @@ export function submitCard ({ deckId, card }) {
   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
     .then((results) => {
       const data = JSON.parse(results)
-      let deck = data[deckId]
-      deck.questions.push(card)
-      data[deckId] = deck
+      data[deckId].questions.push(card)
       AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data))
+      return card
     })
 }
-
-// export function removeDeck (key) {
-//   return AsyncStorage.getItem(DECKS_STORAGE_KEY)
-//     .then((results) => {
-//       const data = JSON.parse(results)
-//       data[key] = undefined
-//       delete data[key]
-//       AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data))
-//     })
-// }

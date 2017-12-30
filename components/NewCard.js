@@ -18,10 +18,11 @@ class NewCard extends Component {
     const { deckId } = this.props.navigation.state.params
     const card = { question, answer }
 
-    this.props.dispatch(addCard(deckId, card))
-    this.setState({question: '', answer: ''})
-    this.toHome()
-    submitCard({ deckId, card })
+    submitCard({ deckId, card }).then((card) => {
+      this.props.dispatch(addCard(deckId, card))
+      this.setState({question: '', answer: ''})
+      this.toHome()
+    })
   }
   toHome = () => {
     this.props.navigation.navigate('Home')

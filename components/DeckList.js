@@ -22,7 +22,6 @@ class DeckList extends Component {
 
     fetchDecks()
       .then((decks) => dispatch(receiveDecks(decks)))
-      .then((decks) => { this.setState({ decks }) })
   }
   render() {
     const { navigation , decks} = this.props
