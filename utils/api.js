@@ -7,10 +7,20 @@ export function fetchDecks () {
 }
 
 export function submitDeck ({ key, deck }) {
-  console.log('submitDeck')
   return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
     [key]: deck
   }))
+}
+
+export function submitCard ({ deckId, card }) {
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+    .then((results) => {
+      const data = JSON.parse(results)
+      let deck = data[deckId]
+      deck.questions.push(card)
+      data[deckId] = deck
+      AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(data))
+    })
 }
 
 // export function removeDeck (key) {
