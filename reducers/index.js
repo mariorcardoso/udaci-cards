@@ -14,8 +14,13 @@ function decks (state = {}, action) {
       }
     case ADD_CARD :
       const { deckId, card } = action
-      state[deckId].questions.push(card)
-      return state
+      return {
+        ...state,
+        [deckId]: {
+          ...state[deckId],
+          questions: state[deckId].questions.concat(card)
+        }
+      }
     default :
       return state
   }
