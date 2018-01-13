@@ -5,16 +5,14 @@ import { connect } from 'react-redux'
 import { receiveDecks, addDeck } from '../actions'
 import { fetchDecks } from '../utils/api'
 
-function Deck ({ id, title, quantity, navigation }) {
-  return (
-    <TouchableOpacity onPress={() => navigation.navigate('DeckDetail', { deckId: id })}>
-      <View style={styles.item}>
-        <Text style={styles.itemName}>{title}</Text>
-        <Text style={styles.itemInfo}>{quantity} cards</Text>
-      </View>
-    </TouchableOpacity>
-  )
-}
+const Deck = ({ id, title, quantity, navigation }) => (
+  <TouchableOpacity onPress={() => navigation.navigate('DeckDetail', { deckId: id })}>
+    <View style={styles.item}>
+      <Text style={styles.itemName}>{title}</Text>
+      <Text style={styles.itemInfo}>{quantity} cards</Text>
+    </View>
+  </TouchableOpacity>
+)
 
 class DeckList extends Component {
   componentDidMount () {
@@ -64,11 +62,9 @@ const styles = StyleSheet.create({
   }
 })
 
-function mapStateToProps (decks) {
-  return {
-    decks
-  }
-}
+const mapStateToProps = (decks) => ({
+  decks
+})
 
 export default connect(
   mapStateToProps,
