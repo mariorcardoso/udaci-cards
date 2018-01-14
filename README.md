@@ -16,3 +16,7 @@ The app was mainly tested and developed for IOS devices and might not work or lo
 ## Create React App
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
+
+## License
+
+This project is released under the [MIT License](https://opensource.org/licenses/MIT).
